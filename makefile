@@ -3,10 +3,12 @@ SRC=./src
 
 BIN_LIST=$(BIN)/main.o $(BIN)/problem_1.o $(BIN)/problem_2.o $(BIN)/problem_3.o $(BIN)/problem_4.o $(BIN)/problem_5.o $(BIN)/problem_6.o
 
+FLAGS=-O2 -lm
+
 OUTPUT=./euler_problems
 
 all: $(BIN_LIST)
-	gcc $(BIN_LIST) -o $(OUTPUT)
+	gcc $(FLAGS) $(BIN_LIST) -o $(OUTPUT)
 
 $(BIN)/main.o: $(SRC)/main.c $(SRC)/euler_problems/euler_problems.h
 	gcc -c $(SRC)/main.c -o $(BIN)/main.o
