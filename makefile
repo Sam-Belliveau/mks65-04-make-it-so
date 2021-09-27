@@ -3,14 +3,14 @@ SRC=./src
 
 BIN_LIST=$(BIN)/main.o $(BIN)/problem_1.o $(BIN)/problem_2.o $(BIN)/problem_3.o $(BIN)/problem_4.o $(BIN)/problem_5.o $(BIN)/problem_6.o
 
-FLAGS=-O2 -lm
+LINKS=-lm
+FLAGS=-O2
+COMPILER=gcc $(FLAGS) 
 
 OUTPUT=./euler_problems
 
-COMPILER=gcc $(FLAGS) 
-
 all: $(BIN_LIST)
-	$(COMPILER) $(BIN_LIST) -o $(OUTPUT)
+	$(COMPILER) $(BIN_LIST) -o $(OUTPUT) $(LINKS)
 
 $(BIN)/main.o: $(SRC)/main.c $(SRC)/euler_problems/euler_problems.h
 	$(COMPILER) -c $(SRC)/main.c -o $(BIN)/main.o
