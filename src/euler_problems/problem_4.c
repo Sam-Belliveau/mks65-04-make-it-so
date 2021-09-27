@@ -1,4 +1,5 @@
 #include "./euler_problems.h"
+#include <math.h>
 
 /*****************/
 /*** PROBLEM 4 ***/

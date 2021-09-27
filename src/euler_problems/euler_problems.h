@@ -2,7 +2,6 @@
 #define SAM_BELLIVEAU_EULER_H
 
 #include <stdint.h>
-#include <math.h>
 
 // Allows me to change integer type 
 // without rewriting program
