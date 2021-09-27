@@ -2,6 +2,7 @@
 
 # Ignore all
 *
+
 # Unignore all with extensions
 !*.*
 # Unignore all dirs
@@ -9,3 +10,6 @@
 
 # Unignore all makefiles
 !makefile
+
+# Ignore Object Files
+bin/*.o
