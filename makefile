@@ -1,37 +1,39 @@
+# Output for binary
+OUTPUT=$(BIN)/euler_problems
+
+# Directories for compiling results
 BIN=./bin
+OBJ=$(BIN)/obj
 SRC=./src
 
-BIN_LIST=$(BIN)/main.o $(BIN)/problem_1.o $(BIN)/problem_2.o $(BIN)/problem_3.o $(BIN)/problem_4.o $(BIN)/problem_5.o $(BIN)/problem_6.o
+# Get headers and c files
+DEPS=$(wildcard $(SRC)/*.h) $(wildcard $(SRC)/*/*.h)
+SRCS=$(wildcard $(SRC)/*.c) $(wildcard $(SRC)/*/*.c)
+OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
+# Compiler / Compiler Settings
 LINKS=-lm
 FLAGS=-O2
-COMPILER=gcc $(FLAGS) 
+COMPILER=gcc $(FLAGS)
 
-OUTPUT=./euler_problems
+# Command to create directory
+MKDIR=mkdir
 
-all: $(BIN_LIST)
-	$(COMPILER) $(BIN_LIST) -o $(OUTPUT) $(LINKS)
+# Compile the Binary
+all: $(OUTPUT)
 
-$(BIN)/main.o: $(SRC)/main.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/main.c -o $(BIN)/main.o
+$(OUTPUT): $(OBJS)
+	$(COMPILER) $^ -o $@ $(LINKS)
 
-$(BIN)/problem_1.o: $(SRC)/euler_problems/problem_1.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_1.c -o $(BIN)/problem_1.o
+# Compile Every Object
+$(OBJ)/%.o: $(SRC)/%.c $(DEPS)
+	$(MKDIR) -p $(@D)
+	$(COMPILER) -c $< -o $@
 
-$(BIN)/problem_2.o: $(SRC)/euler_problems/problem_2.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_2.c -o $(BIN)/problem_2.o
-
-$(BIN)/problem_3.o: $(SRC)/euler_problems/problem_3.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_3.c -o $(BIN)/problem_3.o
-
-$(BIN)/problem_4.o: $(SRC)/euler_problems/problem_4.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_4.c -o $(BIN)/problem_4.o
-
-$(BIN)/problem_5.o: $(SRC)/euler_problems/problem_5.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_5.c -o $(BIN)/problem_5.o
-
-$(BIN)/problem_6.o: $(SRC)/euler_problems/problem_6.c $(SRC)/euler_problems/euler_problems.h
-	$(COMPILER) -c $(SRC)/euler_problems/problem_6.c -o $(BIN)/problem_6.o
-
+# Run the binary
 run: $(OUTPUT)
 	$(OUTPUT)
+
+# Clean make output
+clean:
+	rm -rf ./bin/*
